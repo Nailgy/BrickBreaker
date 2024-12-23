@@ -11,7 +11,7 @@ export class Ball {
             this.dx = dx || 2;
             this.dy = dy || -2;
             this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy); 
-            this.pierce = true;
+            this.pierce = false;
         } catch (error) {
             console.error('Error in Ball constructor:', error);
         }
@@ -82,7 +82,6 @@ export class Ball {
                                 game.increaseScore();
                                 const dropChance = 0.3; //30% drop chance
                                 if (Math.random() < dropChance) {
-                                    console.log('Spawning power-up at:', b.x + b.width / 2, b.y + b.height / 2);
                                     game.spawnPowerUp(b.x + b.width / 2, b.y + b.height / 2);
                                 }
                             }

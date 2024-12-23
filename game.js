@@ -29,7 +29,6 @@ export class Game {
             bar.style.transition = 'none';
             bar.style.width = '0%';
         });
-        console.log('Power-up bars reset');
     }
 
     start() {
@@ -113,7 +112,6 @@ export class Game {
         try {
             const types = ['1', '2', '3'];
             const type = types[Math.floor(Math.random() * types.length)];
-            console.log('Spawning power-up at:', x, y);
             this.powerUps.push(new PowerUp(x, y, type, this.canvas));
         } catch (error) {
             console.error('Error in Game.spawnPowerUp:', error);
