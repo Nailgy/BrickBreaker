@@ -10,8 +10,8 @@ export class Ball {
             this.y = y || canvas.height - paddle.height - this.radius - 20;
             this.dx = dx || 2;
             this.dy = dy || -2;
-            this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy); // Initial speed
-            this.pierce = false;
+            this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy); 
+            this.pierce = true;
         } catch (error) {
             console.error('Error in Ball constructor:', error);
         }
@@ -21,7 +21,7 @@ export class Ball {
         try {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.pierce ? "#FF0000" : "#FFFFFF"; // Red if pierce is active
+            ctx.fillStyle = this.pierce ? "#FF0000" : "#FFFFFF"; 
             ctx.fill();
             ctx.closePath();
         } catch (error) {
@@ -46,15 +46,16 @@ export class Ball {
                 this.dy = -this.dy;
             } else if (this.y + this.dy > this.canvas.height - this.paddle.height - this.radius - 10) {
                 if (this.x > this.paddle.x && this.x < this.paddle.x + this.paddle.width) {
-                    // Calculate the relative position of the ball on the paddle
+                 
                     const relativeHitPosition = (this.x - this.paddle.x) / this.paddle.width;
-                    // Adjust ballDX based on where the ball hits the paddle
-                    this.dx = (relativeHitPosition - 0.5) * 4; // Adjust the multiplier as needed
+                   
+                    this.dx = (relativeHitPosition - 0.5) * 4; 
                     this.dy = -this.dy;
                 } else if (this.y + this.dy > this.canvas.height - this.radius) {
-                    balls.splice(balls.indexOf(this), 1); // Remove ball from array
+                    balls.splice(balls.indexOf(this), 1); 
                     if (balls.length === 0) {
-                        document.location.reload(); // End game if no balls left
+                        game.stop();
+                        game.showGameMessage('Game Over!');
                     }
                 }
             }
@@ -77,10 +78,9 @@ export class Ball {
                             }
                             b.status--;
 
-                            // Check if the brick is destroyed
                             if (b.status === 0) {
-                                // Chance to spawn a power-up
-                                const dropChance = 0.3; // 20% chance
+                                game.increaseScore();
+                                const dropChance = 0.3; //30% drop chance
                                 if (Math.random() < dropChance) {
                                     console.log('Spawning power-up at:', b.x + b.width / 2, b.y + b.height / 2);
                                     game.spawnPowerUp(b.x + b.width / 2, b.y + b.height / 2);

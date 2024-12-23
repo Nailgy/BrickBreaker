@@ -49,4 +49,8 @@ export class Level {
             console.error('Error in Level.draw:', error);
         }
     }
+
+    isCleared() {
+        return this.bricks.every(column => column.every(brick => brick.status === 0));
+    }
 }

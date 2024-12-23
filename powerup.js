@@ -18,6 +18,7 @@ export class PowerUp {
     draw(ctx) {
         try {
             if (this.active) {
+                console.log('Drawing power-up');
                 ctx.save();
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);

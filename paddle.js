@@ -27,43 +27,16 @@ export class Paddle {
     setupEventListeners() {
         try {
             document.addEventListener("mousemove", (event) => {
-                const relativeX = event.clientX - this.canvas.offsetLeft;
-                if (relativeX > 0 && relativeX < this.canvas.width) {
-                    this.x = relativeX - this.width / 2;
-                }
+                const rect = this.canvas.getBoundingClientRect();
+                const mouseX = event.clientX - rect.left;
+                this.x = mouseX - this.width / 2;
+
                 if (this.x < 0) {
                     this.x = 0;
                 } else if (this.x + this.width > this.canvas.width) {
                     this.x = this.canvas.width - this.width;
                 }
             });
-
-            this.canvas.addEventListener("touchstart", (event) => {
-                const touch = event.touches[0];
-                const relativeX = touch.clientX - this.canvas.offsetLeft;
-                if (relativeX > 0 && relativeX < this.canvas.width) {
-                    this.x = relativeX - this.width / 2;
-                }
-                if (this.x < 0) {
-                    this.x = 0;
-                } else if (this.x + this.width > this.canvas.width) {
-                    this.x = this.canvas.width - this.width;
-                }
-            }, false);
-
-            this.canvas.addEventListener("touchmove", (event) => {
-                const touch = event.touches[0];
-                const relativeX = touch.clientX - this.canvas.offsetLeft;
-                if (relativeX > 0 && relativeX < this.canvas.width) {
-                    this.x = relativeX - this.width / 2;
-                }
-                if (this.x < 0) {
-                    this.x = 0;
-                } else if (this.x + this.width > this.canvas.width) {
-                    this.x = this.canvas.width - this.width;
-                }
-                event.preventDefault();
-            }, false);
         } catch (error) {
             console.error('Error in Paddle.setupEventListeners:', error);
         }

@@ -4,16 +4,155 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    font-family: 'Arial', sans-serif; /* Use a clean, modern font */
+    background-color: #1e1e1e; /* Dark background for the body */
+    color: #f0f0f0; /* Light text color */
+}
+
+#container {
+    display: flex;
+}
+
+#ui {
+    display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+    background-color: #2e2e2e; /* Darker background for the UI */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners for the UI container */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
 }
 
 #levelSelector {
     margin-bottom: 10px;
 }
 
+#levelSelector button {
+    background-color: #ff6600; /* Bright orange background */
+    color: #ffffff; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+#levelSelector button:hover {
+    background-color: #ff4500; /* Darker orange on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+#levelSelector button:active {
+    background-color: #cc5200; /* Even darker orange on click */
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
+#scoreBoard {
+    margin-bottom: 10px;
+}
+
+#newHighScoreMessage {
+    color: #ff4500; /* Bright color for the high score message */
+    font-weight: bold;
+    min-height: 20px; /* Ensure space is reserved for the message */
+}
+
+#powerUpBars {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.powerUpBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.progressBar {
+    width: 200px;
+    height: 20px;
+    background-color: #444; /* Dark background for the progress bar */
+    margin-left: 10px;
+    position: relative;
+    border-radius: 10px; /* Rounded corners for the progress bar */
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    position: absolute;
+    border-radius: 10px; /* Rounded corners for the progress */
+}
+
+#pierceBar .progress {
+    background-color: #ff0000; /* Red color for pierce power-up */
+}
+
+#expandBar .progress {
+    background-color: #76c7c0; /* Default color for expand power-up */
+}
+
+#gameMessages {
+    color: #ff0000; /* Bright red color for game messages */
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 24px; /* Larger font size for emphasis */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for contrast */
+}
+
+#restartButton {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3; /* Ensure the button is above the canvas */
+    pointer-events: auto; /* Ensure the button is clickable */
+    opacity: 1; /* Ensure the button is not dimmed */
+    background-color: #ff6600; /* Bright orange background */
+    color: #ffffff; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 25px; /* Rounded corners */
+    padding: 15px 30px; /* Padding for the button */
+    font-size: 20px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+#restartButton:hover {
+    background-color: #ff4500; /* Darker orange on hover */
+    transform: translate(-50%, -50%) scale(1.05); /* Slightly enlarge on hover */
+}
+
+#restartButton:active {
+    background-color: #cc5200; /* Even darker orange on click */
+    transform: translate(-50%, -50%) scale(0.95); /* Slightly shrink on click */
+}
+
 #gameCanvas {
-    background-color: #003300; /* Dark green background */
-    border: 5px solid #00FF00; /* Light green border */
+    background-color: #2e2e2e; /* Darker background for the canvas */
+    border: 5px solid #76c7c0; /* Light blue border */
     width: 400px;
     height: 500px;
+    position: relative;
+}
+
+#gameContainer {
+    position: relative;
+}
+
+#gameContainer.dimmed {
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+#gameContainer.dimmed #restartButton {
+    opacity: 1; /* Ensure the restart button is not dimmed */
 }
