@@ -77,11 +77,14 @@ export class Ball {
                             }
                             b.status--;
 
-                            // Chance to spawn a power-up
-                            const dropChance = 0.9; // 30% chance
-                            if (Math.random() < dropChance) {
-                                console.log('Spawning power-up at:', b.x + b.width / 2, b.y + b.height / 2);
-                                game.spawnPowerUp(b.x + b.width / 2, b.y + b.height / 2);
+                            // Check if the brick is destroyed
+                            if (b.status === 0) {
+                                // Chance to spawn a power-up
+                                const dropChance = 0.3; // 20% chance
+                                if (Math.random() < dropChance) {
+                                    console.log('Spawning power-up at:', b.x + b.width / 2, b.y + b.height / 2);
+                                    game.spawnPowerUp(b.x + b.width / 2, b.y + b.height / 2);
+                                }
                             }
                         }
                     }
@@ -97,7 +100,7 @@ export class Ball {
             this.pierce = true;
             setTimeout(() => {
                 this.pierce = false;
-            }, 5000);
+            }, 6000);
         } catch (error) {
             console.error('Error in Ball.activatePierce:', error);
         }

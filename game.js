@@ -4,13 +4,13 @@ import { Level } from './level.js';
 import { PowerUp } from './powerup.js';
 
 export class Game {
-    constructor(canvas, ctx) {
+    constructor(canvas, ctx, level) {
         try {
             this.canvas = canvas;
             this.ctx = ctx;
             this.paddle = new Paddle(this.canvas);
             this.balls = [new Ball(this.canvas, this.paddle)];
-            this.level = new Level(this.canvas);
+            this.level = new Level(this.canvas, level);
             this.powerUps = [];
         } catch (error) {
             console.error('Error in Game constructor:', error);
@@ -23,6 +23,10 @@ export class Game {
         } catch (error) {
             console.error('Error in Game.start:', error);
         }
+    }
+
+    stop() {
+        cancelAnimationFrame(this.animationFrameId);
     }
 
     draw() {
@@ -38,7 +42,7 @@ export class Game {
 
             this.checkPowerUpCollisions();
 
-            requestAnimationFrame(() => this.draw());
+            this.animationFrameId = requestAnimationFrame(() => this.draw());
         } catch (error) {
             console.error('Error in Game.draw:', error);
         }

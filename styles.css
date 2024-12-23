@@ -4,6 +4,11 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    flex-direction: column;
+}
+
+#levelSelector {
+    margin-bottom: 10px;
 }
 
 #gameCanvas {
