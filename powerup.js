@@ -1,29 +1,55 @@
 export class PowerUp {
-    constructor(x, y, width, height, type) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.type = type;
-        this.dy = 2;
+    constructor(x, y, type, canvas) {
+        try {
+            this.x = x;
+            this.y = y;
+            this.radius = 10;
+            this.type = type;
+            this.dy = 2;
+            this.active = true;
+            this.image = new Image();
+            this.image.src = `./img/${type}.jpg`;
+            this.canvas = canvas;
+        } catch (error) {
+            console.error('Error in PowerUp constructor:', error);
+        }
     }
 
     draw(ctx) {
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = "#FF0000"; // Example color
-        ctx.fill();
-        ctx.closePath();
+        try {
+            if (this.active) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(this.image, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+                ctx.restore();
+            }
+        } catch (error) {
+            console.error('Error in PowerUp.draw:', error);
+        }
     }
 
     update() {
-        this.y += this.dy;
+        try {
+            this.y += this.dy;
+        } catch (error) {
+            console.error('Error in PowerUp.update:', error);
+        }
     }
 
     checkCollision(paddle) {
-        if (this.y + this.height > paddle.y && this.x > paddle.x && this.x < paddle.x + paddle.width) {
-            return true;
+        try {
+            const paddleTop = this.canvas.height - paddle.height - 10;
+            if (this.y + this.radius > paddleTop && this.x > paddle.x && this.x < paddle.x + paddle.width) {
+                this.active = false;
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Error in PowerUp.checkCollision:', error);
+            return false;
         }
-        return false;
     }
 }
